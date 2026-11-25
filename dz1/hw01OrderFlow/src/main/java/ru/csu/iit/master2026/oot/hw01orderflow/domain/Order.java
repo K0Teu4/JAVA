@@ -116,7 +116,11 @@ public final class Order implements Iterable<OrderItem> {
         status = status.ship();
     }
 
-    public void deliver() {\n        status = status.deliver();\n    }\n\n    public void cancel() {
+    public void deliver() {
+        status = status.deliver();
+    }
+
+    public void cancel() {
         status = status.cancel();
     }
 
