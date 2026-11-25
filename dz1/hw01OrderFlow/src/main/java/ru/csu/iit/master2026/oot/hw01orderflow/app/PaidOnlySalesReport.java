@@ -3,16 +3,22 @@ package ru.csu.iit.master2026.oot.hw01orderflow.app;
 import ru.csu.iit.master2026.oot.hw01orderflow.domain.Order;
 import java.util.List;
 
-/** Отчёт только по оплаченным заказам; все показатели вычисляются по той же выборке. */
+/** Отчёт только по оплаченным заказам. Фильтрация применяется и к строкам, и ко всем итогам. */
 public final class PaidOnlySalesReport extends SalesReport {
     public PaidOnlySalesReport(OrderRepository orders) { super(orders); }
-    @Override protected List<Order> selectedOrders() {
+
+    @Override
+    protected List<Order> selectedOrders() {
         return orders.findAll().stream().filter(order -> order.status().paid()).toList();
     }
-    @Override protected void row(StringBuilder out, Order order) {
-        out.append("%-6s %-9s %s\\n".formatted(order.id(), order.status(), order.total()));
+
+    @Override
+    protected void row(StringBuilder out, Order order) {
+        out.append("%-6s %-9s %s\n".formatted(order.id(), order.status(), order.total()));
     }
-    @Override protected void footer(StringBuilder out, Totals totals) {
+
+    @Override
+    protected void footer(StringBuilder out, Totals totals) {
         out.append("Оплаченных заказов: ").append(totals.count())
             .append(", экспресс: ").append(totals.express())
             .append(", выручка: ").append(totals.revenue())
