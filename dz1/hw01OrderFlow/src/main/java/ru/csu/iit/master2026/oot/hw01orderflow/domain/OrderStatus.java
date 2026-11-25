@@ -1,68 +1,30 @@
 package ru.csu.iit.master2026.oot.hw01orderflow.domain;
 
-/**
- * Статус заказа. Паттерн «Состояние»: каждый статус сам знает, куда из него можно перейти.
- *
- * <p>Переходы: NEW → PAID → SHIPPED; NEW и PAID → CANCELLED. Остальное — исключение.
- */
+/** Паттерн «Состояние»: статус определяет разрешённые переходы заказа. */
 public enum OrderStatus {
-
     NEW {
-        @Override
-        OrderStatus pay() {
-            return PAID;
-        }
-
-        @Override
-        OrderStatus cancel() {
-            return CANCELLED;
-        }
+        @Override OrderStatus pay() { return PAID; }
+        @Override OrderStatus cancel() { return CANCELLED; }
     },
-
     PAID {
-        @Override
-        OrderStatus ship() {
-            return SHIPPED;
-        }
-
-        @Override
-        OrderStatus cancel() {
-            return CANCELLED;
-        }
-
-        @Override
-        public boolean paid() {
-            return true;
-        }
+        @Override OrderStatus ship() { return SHIPPED; }
+        @Override OrderStatus cancel() { return CANCELLED; }
+        @Override public boolean paid() { return true; }
     },
-
     SHIPPED {
-        @Override
-        public boolean paid() {
-            return true;
-        }
+        @Override OrderStatus deliver() { return DELIVERED; }
+        @Override public boolean paid() { return true; }
     },
+    DELIVERED {
+        @Override public boolean paid() { return true; }
+    },
+    CANCELLED;
 
-    DELIVERED {\n        @Override\n        public boolean paid() { return true; }\n    },\n\n    CANCELLED;
-
-    /** Переходы по умолчанию запрещены: статус разрешает только свои. */
-    OrderStatus pay() {
-        throw forbidden("оплатить");
-    }
-
-    OrderStatus ship() {
-        throw forbidden("отправить");
-    }
-
-    OrderStatus cancel() {
-        throw forbidden("отменить");
-    }
-
-    /** Деньги за заказ получены. */
-    public boolean paid() {
-        return false;
-    }
-
+    OrderStatus pay() { throw forbidden("оплатить"); }
+    OrderStatus ship() { throw forbidden("отправить"); }
+    OrderStatus cancel() { throw forbidden("отменить"); }
+    OrderStatus deliver() { throw forbidden("вручить"); }
+    public boolean paid() { return false; }
     private IllegalStateException forbidden(String action) {
         return new IllegalStateException("Нельзя " + action + " заказ в статусе " + this);
     }
