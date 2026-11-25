@@ -43,7 +43,7 @@
 
 **BUILD SUCCESS**
 
-Последний прогон GitHub Actions: [DZ1 Maven tests — run #6](https://github.com/K0Teu4/JAVA/actions/runs/45574549744).
+Успешный проверочный прогон GitHub Actions: [DZ1 Maven tests — run #7](https://github.com/K0Teu4/JAVA/actions/runs/45574655145).
 
 | Модуль | Тестов | Ошибок | Падений | Пропусков |
 |---|---:|---:|---:|---:|
