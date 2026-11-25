@@ -20,7 +20,7 @@ public abstract class SalesReport {
     public record Totals(int count, int express, Money revenue, Optional<OrderId> largest) {
     }
 
-    private final OrderRepository orders;
+    protected final OrderRepository orders;
 
     protected SalesReport(OrderRepository orders) {
         this.orders = orders;
