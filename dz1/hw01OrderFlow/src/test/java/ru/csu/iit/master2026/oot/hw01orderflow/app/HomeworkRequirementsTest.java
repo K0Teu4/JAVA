@@ -62,8 +62,8 @@ class HomeworkRequirementsTest {
         third.pay(); third.ship();
 
         assertThat(new PaidOnlySalesReport(repo).render()).isEqualTo(
-            "ORD-1  PAID      65490.00 руб.\\n" +
-            "ORD-3  SHIPPED   700.00 руб.\\n" +
+            "ORD-1  PAID      65490.00 руб.\n" +
+            "ORD-3  SHIPPED   700.00 руб.\n" +
             "Оплаченных заказов: 2, экспресс: 1, выручка: 66190.00 руб., крупнейший: ORD-1");
     }
 
@@ -91,4 +91,17 @@ class HomeworkRequirementsTest {
         assertThatThrownBy(order::deliver).isInstanceOf(IllegalStateException.class);
         assertThat(order.status()).isEqualTo(OrderStatus.NEW);
     }
+    @Test void sameDayDelivery_isIncludedInExpressTotals() {
+        var repo = new InMemoryOrderRepository();
+        var place = new PlaceOrder(repo, silent());
+        Order regularExpress = place.place(Order.builder().customer(customer())
+            .item("x", 1, rubles(100)).delivery(new ExpressDelivery()));
+        regularExpress.pay();
+        Order sameDay = place.place(Order.builder().customer(customer())
+            .item("y", 1, rubles(100)).delivery(new SameDayDelivery()));
+        sameDay.pay();
+        assertThat(new TextSalesReport(repo).render())
+            .contains("Заказов: 2, экспресс: 2, выручка:");
+    }
+
 }
