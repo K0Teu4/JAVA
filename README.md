@@ -41,9 +41,9 @@
 
 ### Результаты автоматических тестов
 
-<badge color="success">BUILD SUCCESS</badge>
+**BUILD SUCCESS**
 
-Последний прогон GitHub Actions: [DZ1 Maven tests — run #5](https://github.com/K0Teu4/JAVA/actions/runs/45574382533).
+Последний прогон GitHub Actions: [DZ1 Maven tests — run #6](https://github.com/K0Teu4/JAVA/actions/runs/45574549744).
 
 | Модуль | Тестов | Ошибок | Падений | Пропусков |
 |---|---:|---:|---:|---:|

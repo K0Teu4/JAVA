@@ -12,7 +12,7 @@
 - Реализован банковский модуль: суммы, дебетовые/кредитные счета, команды операций, атомарный перевод и журнал отмен.
 
 ## Проверка
-**GitHub Actions:** [run #5 — успешно](https://github.com/K0Teu4/JAVA/actions/runs/45574382533)
+**GitHub Actions:** [run #6 — успешно](https://github.com/K0Teu4/JAVA/actions/runs/45574549744)
 
 | Модуль | Тесты | Failures | Errors | Skipped |
 |---|---:|---:|---:|---:|
